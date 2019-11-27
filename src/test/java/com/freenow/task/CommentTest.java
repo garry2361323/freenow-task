@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,15 +29,15 @@ class CommentTest extends TestBase {
         final int maxEmailLength = 64;
 
         // get user id
-        var id = userApi.getIdByUsername(username);
+        int id = userApi.getIdByUsername(username);
 
         // get posts list
-        var posts = postApi.getByUserId(id);
+        List<Post> posts = postApi.getByUserId(id);
 
-        var assertionsList = new ArrayList<Executable>();
+        List<Executable> assertionsList = new ArrayList<Executable>();
         for (Post post : posts) {
             // get comments list
-            var comments = postApi.getCommentByPostId(post.getId());
+            List<Comment> comments = postApi.getCommentByPostId(post.getId());
 
             for (Comment comment : comments) {
                 String reason = "Comment #" + comment.getId();

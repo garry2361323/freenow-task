@@ -34,7 +34,7 @@ class CommentTest extends TestBase {
         // get posts list
         List<Post> posts = postApi.getByUserId(id);
 
-        List<Executable> assertionsList = new ArrayList<Executable>();
+        List<Executable> assertionsList = new ArrayList<>();
         for (Post post : posts) {
             // get comments list
             List<Comment> comments = postApi.getCommentByPostId(post.getId());

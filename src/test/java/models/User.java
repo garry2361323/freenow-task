@@ -6,21 +6,22 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Post {
+public class User {
     private final int id;
-    private final int userId;
+    private final String username;
 
     @JsonCreator
-    Post(@JsonProperty("id") int id, @JsonProperty("userId") int userId) {
+    User(@JsonProperty("id") int id,
+         @JsonProperty("email") String email) {
         this.id = id;
-        this.userId = userId;
+        this.username = email;
     }
 
     public int getId() {
         return id;
     }
 
-    public int getUserId() {
-        return userId;
+    public String getUsername() {
+        return username;
     }
 }

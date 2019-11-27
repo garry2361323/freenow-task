@@ -1,20 +1,29 @@
 package api;
 
-import io.restassured.http.ContentType;
+import io.restassured.common.mapper.TypeRef;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
+import static org.hamcrest.Matchers.hasSize;
 
 public abstract class User {
-    public static int getUserIdByUsername(String username) {
+    public static int getIdByUsername(String username) {
+        var users = getBy("username", username);
+
+        // not sure if username is unique, get first matching user if there is such
+        assertThat("No users found by username=" + username, users, hasSize(greaterThanOrEqualTo(1)));
+
+        return users.get(0).getId();
+    }
+
+    private static List<models.User> getBy(String name, String value) {
         return given().
-                queryParam("username", username).
+                queryParam(name, value).
                 when().
                 get("/users").
-                then().
-                contentType(ContentType.JSON).
-                body("size()", greaterThanOrEqualTo(1)).
-                extract().
-                path("[0].id");
+                as(new TypeRef<List<models.User>>() {});
     }
 }

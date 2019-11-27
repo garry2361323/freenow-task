@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.Matchers.matchesRegex;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
@@ -17,11 +17,11 @@ class CommentTest extends TestBase {
     @ParameterizedTest
     @ValueSource(strings = {"Samantha"})
     void emailTest(String username) {
+        final Pattern emailRegex = utils.Patterns.getEmailPattern();
         final int maxEmailLength = 64;
-        final Pattern emailRegex = Pattern.compile("^(?![._\\-+])[a-zA-Z0-9_.+-]*[a-zA-Z0-9]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]*[a-zA-Z0-9]+$");
 
         // get user id
-        var id = User.getUserIdByUsername(username);
+        var id = User.getIdByUsername(username);
 
         // get posts array
         var posts = api.Post.getByUserId(id);
@@ -32,13 +32,12 @@ class CommentTest extends TestBase {
             var comments = api.Comment.getByPostId(post.getId());
 
             for (Comment comment : comments) {
-                assertionsList.add(() -> assertThat("Comment #" + comment.getId(), comment.getEmail(), matchesRegex(emailRegex)));
-                assertionsList.add(() -> assertThat("Comment #" + comment.getId(), comment.getEmail().length(), lessThan(maxEmailLength)));
+                String reason = "Comment #" + comment.getId();
+                assertionsList.add(() -> assertThat(reason, comment.getEmail(), matchesRegex(emailRegex)));
+                assertionsList.add(() -> assertThat(reason, comment.getEmail().length(), lessThanOrEqualTo(maxEmailLength)));
             }
         }
 
         assertAll(assertionsList.stream());
-
-        var b = 3;
     }
 }

@@ -1,10 +1,15 @@
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-
-import static io.restassured.RestAssured.baseURI;
 
 abstract class TestBase {
     @BeforeAll
     static void setup() {
-        baseURI = "https://jsonplaceholder.typicode.com";
+        RestAssured.requestSpecification = new RequestSpecBuilder()
+                .setBaseUri("https://jsonplaceholder.typicode.com")
+                .setContentType(ContentType.JSON)
+                .setAccept(ContentType.JSON)
+                .build();
     }
 }

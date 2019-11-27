@@ -4,26 +4,27 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Comment {
-    private Integer id;
-    private Integer postId;
-    private String email;
+    private final int id;
+    private final int postId;
+    private final String email;
 
     @JsonCreator
-    Comment(@JsonProperty("id") Integer id,
-            @JsonProperty("postId") Integer postId,
+    Comment(@JsonProperty("id") int id,
+            @JsonProperty("postId") int postId,
             @JsonProperty("email") String email) {
         this.id = id;
         this.postId = postId;
         this.email = email;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public Integer getPostId() {
+    public int getPostId() {
         return postId;
     }
 

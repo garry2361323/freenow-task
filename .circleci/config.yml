@@ -33,5 +33,5 @@ jobs:
             - ~/.gradle
           key: v11-gradle-{{ checksum "build.gradle" }}
 
-      # run tests!
+      - run: gradle unitTest
       - run: gradle test

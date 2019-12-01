@@ -23,5 +23,13 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    useJUnitPlatform {
+        excludeTags 'unit'
+    }
+}
+
+task unitTest(type: Test) {
+    useJUnitPlatform {
+        includeTags 'unit'
+    }
 }

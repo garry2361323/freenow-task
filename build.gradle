@@ -12,6 +12,10 @@ repositories {
 }
 
 dependencies {
+    // lombok requires IDE Plugin https://projectlombok.org/setup/intellij
+    testCompileOnly 'org.projectlombok:lombok:1.18.10'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.10'
+
     testImplementation 'io.rest-assured:rest-assured:4.1.2'
     testImplementation 'com.fasterxml.jackson.core:jackson-databind:2.10.1'
     testImplementation 'io.rest-assured:json-path:4.1.2'

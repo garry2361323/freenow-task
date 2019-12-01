@@ -1,11 +1,11 @@
-package models;
+package com.freenow.task.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 @SuppressWarnings("unused")
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Post {
+public class User {
     @Getter private int id;
-    @Getter private int userId;
+    @Getter private String username;
 }

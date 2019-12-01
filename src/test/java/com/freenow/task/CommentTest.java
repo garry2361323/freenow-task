@@ -1,6 +1,10 @@
-import api.User;
-import models.Comment;
-import models.Post;
+package com.freenow.task;
+
+import com.freenow.task.api.PostApi;
+import com.freenow.task.api.UserApi;
+import com.freenow.task.models.Comment;
+import com.freenow.task.models.Post;
+import com.freenow.task.utils.Patterns;
 import org.junit.jupiter.api.function.Executable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -14,14 +18,13 @@ import static org.hamcrest.Matchers.matchesRegex;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CommentTest extends TestBase {
-    private final User userApi = new User();
-    private final api.Post postApi = new api.Post();
-    private final api.Comment commentApi = new api.Comment();
+    private final UserApi userApi = new UserApi();
+    private final PostApi postApi = new PostApi();
 
     @ParameterizedTest
     @ValueSource(strings = {"Samantha"})
     void emailTest(String username) {
-        final Pattern emailRegex = utils.Patterns.getEmailPattern();
+        final Pattern emailRegex = Patterns.getEmailPattern();
         final int maxEmailLength = 64;
 
         // get user id
@@ -33,7 +36,7 @@ class CommentTest extends TestBase {
         var assertionsList = new ArrayList<Executable>();
         for (Post post : posts) {
             // get comments list
-            var comments = commentApi.getByPostId(post.getId());
+            var comments = postApi.getCommentByPostId(post.getId());
 
             for (Comment comment : comments) {
                 String reason = "Comment #" + comment.getId();

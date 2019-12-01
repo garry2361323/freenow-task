@@ -1,5 +1,6 @@
-package api;
+package com.freenow.task.api;
 
+import com.freenow.task.models.User;
 import io.restassured.common.mapper.TypeRef;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 
-public class User {
+public class UserApi {
     public int getIdByUsername(String username) {
         var users = getBy("username", username);
 
@@ -19,7 +20,7 @@ public class User {
         return users.get(0).getId();
     }
 
-    private List<models.User> getBy(String name, String value) {
+    private List<User> getBy(String name, String value) {
         return given().
                 queryParam(name, value).
                 when().

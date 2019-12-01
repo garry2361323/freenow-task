@@ -1,4 +1,4 @@
-package utils;
+package com.freenow.task.utils;
 
 import org.hamcrest.core.Every;
 
@@ -11,11 +11,12 @@ import static org.hamcrest.Matchers.not;
 
 public abstract class Patterns {
     // todo handle duplicate symbols
-    private static final Pattern emailPattern = Pattern.compile("^(?![._\\-+])[a-zA-Z0-9_.+-]*[a-zA-Z0-9]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]*[a-zA-Z0-9]+$");
+    private static final String emailPattern =
+            "^(?![._\\-+])[a-zA-Z0-9_.+-]*[a-zA-Z0-9]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]*[a-zA-Z0-9]+$";
 
     public static Pattern getEmailPattern() {
         // Patterns.verifyEmailPattern();
-        return emailPattern;
+        return Pattern.compile(emailPattern);
     }
 
     @SuppressWarnings("unused")

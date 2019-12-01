@@ -9,8 +9,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.hasSize;
 
-public abstract class User {
-    public static int getIdByUsername(String username) {
+public class User {
+    public int getIdByUsername(String username) {
         var users = getBy("username", username);
 
         // not sure if username is unique, get first matching user if there is such
@@ -19,11 +19,11 @@ public abstract class User {
         return users.get(0).getId();
     }
 
-    private static List<models.User> getBy(String name, String value) {
+    private List<models.User> getBy(String name, String value) {
         return given().
                 queryParam(name, value).
                 when().
                 get("/users").
-                as(new TypeRef<List<models.User>>() {});
+                as(new TypeRef<>() {});
     }
 }

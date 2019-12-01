@@ -14,6 +14,10 @@ import static org.hamcrest.Matchers.matchesRegex;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 class CommentTest extends TestBase {
+    private final User userApi = new User();
+    private final api.Post postApi = new api.Post();
+    private final api.Comment commentApi = new api.Comment();
+
     @ParameterizedTest
     @ValueSource(strings = {"Samantha"})
     void emailTest(String username) {
@@ -21,15 +25,15 @@ class CommentTest extends TestBase {
         final int maxEmailLength = 64;
 
         // get user id
-        var id = User.getIdByUsername(username);
+        var id = userApi.getIdByUsername(username);
 
-        // get posts array
-        var posts = api.Post.getByUserId(id);
+        // get posts list
+        var posts = postApi.getByUserId(id);
 
         var assertionsList = new ArrayList<Executable>();
         for (Post post : posts) {
-            // get comments array
-            var comments = api.Comment.getByPostId(post.getId());
+            // get comments list
+            var comments = commentApi.getByPostId(post.getId());
 
             for (Comment comment : comments) {
                 String reason = "Comment #" + comment.getId();
@@ -38,6 +42,6 @@ class CommentTest extends TestBase {
             }
         }
 
-        assertAll(assertionsList.stream());
+        assertAll(assertionsList);
     }
 }

@@ -15,3 +15,4 @@ The project uses Java 11, see [java-8](https://github.com/mgrybyk/freenow-task/t
 - JUnit 5
 - Rest Assured
 - Gradle
+- Lombok (requires [IDE Plugin](https://projectlombok.org/setup/intellij))

@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 public class UserApi {
     public int getIdByUsername(String username) {
-        var users = getBy("username", username);
+        List<User> users = getBy("username", username);
 
         // not sure if username is unique, get first matching user if there is such
         assertThat("No users found by username=" + username, users, hasSize(greaterThanOrEqualTo(1)));
@@ -25,6 +25,6 @@ public class UserApi {
                 queryParam(name, value).
                 when().
                 get("/users").
-                as(new TypeRef<>() {});
+                as(new TypeRef<List<User>>() {});
     }
 }

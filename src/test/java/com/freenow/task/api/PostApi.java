@@ -14,12 +14,12 @@ public class PostApi {
                 queryParam("userId", userId).
                 when().
                 get("/posts").
-                as(new TypeRef<>() {});
+                as(new TypeRef<List<Post>>() {});
     }
 
     public List<Comment> getCommentByPostId(int postId) {
         return given().
                 get("/post/{postId}/comments", postId).
-                as(new TypeRef<>() {});
+                as(new TypeRef<List<Comment>>() {});
     }
 }
